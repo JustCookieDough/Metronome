@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- importing some fonts cause courier is gross -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Public+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Space+Mono">
+
+    <title>Metronome</title>
+    <style>
+    :root {
+        font-family: 'Space Mono';
+        /* font-family: 'Inconsolata'; */
+        /* font-family: 'Public Sans'; */
+        /* font-family: 'Courier New'; */
+        font-size: 18px;
+    }
+    
+    input { font-family:inherit; font-size: inherit; opacity: 75%;}
+    button { font-family:inherit; font-size: inherit; opacity: 75%;}
+
+    body {
+        background-color: #303030;
+        font-family: 'Space Mono';
+        /* font-family: 'Inconsolata'; */
+        /* font-family: 'Public Sans'; */
+        /* font-family: 'Courier New'; */
+        font-size: 18px;
+    }
+
+    .mainContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: .5rem;
+        padding: .5rem;
+        border-radius: .25rem;
+        background-color: #5a5a5a;
+        width: 350px;
+    }
+
+    .beat {
+        background-color: #ffc186; 
+        border-radius: 50%;
+        border: none;
+        width: 4rem;
+        height: 4rem;
+        margin: .3rem;
+    }
+
+    .downbeat {
+        background-color: #ff9752; 
+    }
+
+    .beat.highlight {
+        background-color: #ff5e00; 
+    }
+    
+    .tempo {
+        margin-bottom: .5rem;
+    }
+
+    body {
+        margin: 0px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hori-flex {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: .25rem;
+    }
+
+    .vert-flex {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: .25rem;
+    }
+
+    .controls {
+        width: 10rem;
+        justify-content: space-evenly;
+        margin: .25rem 0rem .25rem;
+    }
+
+    .controls button {
+        border: none;
+        background-color: #cacaca;
+    }
+
+    .controls button:active {
+        background-color: #9b9b9b;
+    }
+
+    .controls input {
+        width: 4rem;
+    }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 35px;
+        height: 20px;
+    }
+    
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+    
+    .switchSlider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #303030;
+        -webkit-transition: .4s;
+        transition: .4s;
+        border-radius: 20px;
+    }
+    
+    .switchSlider:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        left: 2px;
+        bottom: 2px;
+        background-color:#cacaca;
+        -webkit-transition: .4s;
+        transition: .4s;
+        border-radius: 50%;
+    }
+
+    input:checked + .switchSlider {
+        background-color: #9b9b9b;
+      }
+      
+    input:checked + .switchSlider:before {
+        -webkit-transform: translateX(14px);
+        -ms-transform: translateX(14px);
+        transform: translateX(14px);
+    }  
+
+    .muteImg {
+        height: 20px;
+        width: 20px;
+        margin: .25rem;
+    }
+
+    .muteDiv {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        opacity: 70%;
+    }
+    </style>
+</head>
+<body>
+    <div class="mainContainer">
+        <div class="tempo vert-flex" id="metroDiv">
+            <div class="hori-flex">
+                <div class="beat downbeat"></div>
+                <div class="beat"></div>
+                <div class="beat"></div>
+                <div class="beat"></div>
+            </div>
+        </div>
+        <div class="controls">
+            <div class="hori-flex controls">
+                <button id="start">start</button>
+                <button id="stop">stop</button>
+            </div>
+            <div class="hori-flex controls">
+                <input id="tempoDisp" type="number" value="120">
+                <t id="output">(120.00)</t>
+            </div>
+            <div class="hori-flex controls">
+                <button id="tapButton" placeholder="tempo">tap</button>
+                <button id="reset">reset</button>
+            </div>
+            <div class="hori-flex controls">
+                <select id="timeSig">
+                    <option value="2/4">2/4</option>
+                    <option value="3/4">3/4</option>
+                    <option value="4/4" selected="selected">4/4</option>
+                    <option value="5/4">5/4</option>
+                    <option value="6/8">6/8</option>
+                    <option value="7/8">7/8</option>
+                    <option value="9/8">9/8</option>
+                    <option value="12/8">12/8</option>
+                </select>
+                <div class="muteDiv">
+                    <img src="images/sound.png" class="muteImg">
+                    <label class="switch">
+                        <input type="checkbox" id="muteCheck" checked>
+                        <span class="switchSlider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
